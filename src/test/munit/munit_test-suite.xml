@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="munit_test-suite.xml" />
+	<munit:test name="munit_testFlow-test" doc:id="735f2662-77ef-4630-9bb9-ad62fd3e8ccd">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="c1c8edf0-2386-42dc-a018-7e717c1359a8" processor="set-variable">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="myvariable" attributeName="variableName" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="myvariable" value="#['variable_1']" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:spy doc:name="Spy" doc:id="1cd98288-cec3-4ce7-8e75-6fbb25c389f1" processor="set-payload">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="setp" attributeName="name" />
+					<munit-tools:with-attribute whereValue="setp" attributeName="name" />
+					<munit-tools:with-attribute whereValue="setp" attributeName="name" />
+					<munit-tools:with-attribute whereValue="setp" attributeName="name" />
+					<munit-tools:with-attribute whereValue="setp" attributeName="name" />
+				</munit-tools:with-attributes>
+				<munit-tools:before-call>
+					<munit-tools:assert-that doc:name="Assert that" doc:id="e6a65e8b-d8dd-4028-8dda-5ea904a7e8f9" is="#[MunitTools::equalTo('dummy')]" expression="#[payload]"/>
+				</munit-tools:before-call>
+				<munit-tools:after-call>
+					<munit-tools:assert-that doc:name="Assert that" doc:id="38db81d9-157c-49b1-a7cf-e57ce26a4795" is="#[MunitTools::equalTo('payload_1')]" expression="#[payload]"/>
+				</munit-tools:after-call>
+			</munit-tools:spy>
+			<munit:set-event doc:name="Set Event" doc:id="197b78b2-e2ff-4178-9513-84483a55ce78">
+				<munit:attributes value="#[{
+'queryParams':{
+'urlk':'payload_1'
+}
+}]" />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution>
+			<flow-ref doc:name="Flow-ref to munit_testFlow" doc:id="9093bde0-8af2-47ba-8c8a-79df9aefea01" name="munit_testFlow" />
+		</munit:execution>
+		<munit:validation>
+			<munit-tools:assert-that doc:name="Assert that" doc:id="7e4d936e-89aa-4f6c-856f-7a16281ffe8b" is="#[MunitTools::both(MunitTools::notNullValue(),MunitTools::equalTo('payload1'))]" message="payload should not be empty" expression="#[payload]" />
+			<munit-tools:verify-call doc:name="Verify call" doc:id="e288582a-a8f4-4371-9e4a-3db7789ba7f1" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="subflow1" attributeName="name" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="munit_test-suiteTest" doc:id="d5ab5330-f265-48b7-8f50-61a044a3229f" >
+		<munit:behavior >
+			<munit:set-event doc:name="Set Event" doc:id="bbf1591c-f9e4-48cc-a32a-05d1138d7f63" >
+				<munit:attributes value="#[{
+'queryParams':{
+'urlk':'payload_2'
+}
+}]" />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference" doc:id="0e794262-0233-4a14-a2aa-0c6d3c5c6086" name="munit_testFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="41cbc1aa-9a41-4d56-b496-54567225177b" is="#[MunitTools::both(MunitTools::notNullValue(),MunitTools::equalTo('payload2'))]" expression="#[payload]" message="payload is not empty and correct"/>
+			<munit-tools:verify-call doc:name="Verify call" doc:id="09b9e863-533c-4f89-b3fd-8508d0e32b69" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="subflow2" attributeName="name" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>
