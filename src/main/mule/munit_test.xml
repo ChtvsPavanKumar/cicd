@@ -8,7 +8,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		<http:listener-connection host="0.0.0.0" port="8081" />
 	</http:listener-config>
 	<flow name="munit_testFlow" doc:id="a5c7e216-9f10-4a3d-a164-325117f2bd5a" >
-		<http:listener doc:name="Listener" doc:id="5ef2f17d-267e-4d2f-ba8c-e963fc465265" config-ref="HTTP_Listener_config" path="/mt"/>
+		<http:listener doc:name="Listener" doc:id="5ef2f17d-267e-4d2f-ba8c-e963fc465265" config-ref="HTTP_Listener_config" path="/testz"/>
 		<set-payload value="#['dummy']" doc:name="Set Payload" doc:id="e7285bf6-bbe2-4602-bd9a-aecafc5f8b05" name="dummy"/>
 		<set-payload value="#[attributes.queryParams.urlk]" doc:name="Set Payload" doc:id="bf5f870b-45a0-4fdf-9b65-83365c723e14" name="setp"/>
 		<flow-ref doc:name="Flow Reference" doc:id="52ce92be-edec-40f0-9845-71a959094f2f" name="choiceflow"/>
