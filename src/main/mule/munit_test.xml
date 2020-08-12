@@ -38,3 +38,4 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		<set-variable value="variable_2" doc:name="Set Variable" doc:id="23f99a66-e2dd-4bad-baab-dad685315e8f" variableName="myvariable"/>
 	</sub-flow>
 </mule>
+ 
