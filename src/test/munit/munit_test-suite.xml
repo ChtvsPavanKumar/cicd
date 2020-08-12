@@ -29,7 +29,7 @@
 					<munit-tools:with-attribute whereValue="setp" attributeName="name" />
 				</munit-tools:with-attributes>
 				<munit-tools:before-call>
-					<munit-tools:assert-that doc:name="Assert that" doc:id="e6a65e8b-d8dd-4028-8dda-5ea904a7e8f9" is="#[MunitTools::equalTo('dummy')]" expression="#[payload]"/>
+					<munit-tools:assert-that doc:name="Assert that" doc:id="e6a65e8b-d8dd-4028-8dda-5ea904a7e8f9" is="#[MunitTools::equalTo('dummy value')]" expression="#[payload]"/>
 				</munit-tools:before-call>
 				<munit-tools:after-call>
 					<munit-tools:assert-that doc:name="Assert that" doc:id="38db81d9-157c-49b1-a7cf-e57ce26a4795" is="#[MunitTools::equalTo('payload_1')]" expression="#[payload]"/>
